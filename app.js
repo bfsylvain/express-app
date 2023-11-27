@@ -1,8 +1,11 @@
 const express = require("express");
-
 const app = express();
 
-const port = 5000;
+const welcomeMsg = (req, res) => {
+  res.send("Welcome to my favourite movie list !");
+};
+
+app.get("/", welcomeMsg);
 
 const movies = [
   {
@@ -19,51 +22,33 @@ const movies = [
     director: "Francis Ford Coppola",
     year: "1972",
     color: true,
-    duration: 180,  },
+    duration: 180,
+  },
   {
     id: 3,
     title: "Pulp Fiction",
     director: "Quentin Tarantino",
     year: "1994",
     color: true,
-    duration: 180,  
-},
+    duration: 180,
+  },
 ];
 
-// const findMovies = (req, res) => {
-//     if (req.url === "/") {
-//         res.send("Welcome to my favourite movie list !")
-//     }else if(req.url === "/api/movies") {
-//         res.status(200).json(movies)
-//     } else {
-//         let wantedMovie = movies.find(movie => movie.id === req.url.params.number)
-//         if(wantedMovie) {
-//             res.status(200).json(wantedMovie);
-//         } else {
-//             res.status(404).send("ayoy")
-//         }
-//     }
-// };
-const welcomeMsg = (req, res) => {
-    res.send("Welcome to my favourite movie list !")
-}
 const moviesList = (req, res) => {
-    res.status(200).json(movies)
-}
-const findMovies = (req, res) => {
-    let wantedMovie = movies.find((movie) => movie.id === parseInt(req.params.id))
-    wantedMovie ? res.status(200).json(wantedMovie.title) : res.status(404).send("Not Found")       
-}
+  res.status(200).json(movies);
+};
 
-app.get("/", welcomeMsg)
 app.get("/api/movies", moviesList);
-app.get("/api/movies/:id", findMovies)
 
+const findMovies = (req, res) => {
+  let wantedMovie = movies.find(
+    (movie) => movie.id === parseInt(req.params.id)
+  );
+  wantedMovie
+    ? res.status(200).json(wantedMovie.title)
+    : res.status(404).send("Not Found");
+};
 
-app.listen(port, (err) => {
-  if (err) {
-    console.error("ayaya something bad happened");
-  } else {
-    console.log(`Servier is listening on ${port}`);
-  }
-});
+app.get("/api/movies/:id", findMovies);
+
+module.exports = app;
