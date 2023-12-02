@@ -1,8 +1,8 @@
-const express = require("./app");
+const app = require("./app");
 
 const port = 5000;
 
-app.listen(port, () => {
+app.listen(port, (err) => {
   if (err) {
     console.error("ayaya something bad happened");
   } else {
