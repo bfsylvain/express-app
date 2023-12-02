@@ -29,21 +29,6 @@ const movies = [
     duration: 180,  
 },
 ];
-
-// const findMovies = (req, res) => {
-//     if (req.url === "/") {
-//         res.send("Welcome to my favourite movie list !")
-//     }else if(req.url === "/api/movies") {
-//         res.status(200).json(movies)
-//     } else {
-//         let wantedMovie = movies.find(movie => movie.id === req.url.params.number)
-//         if(wantedMovie) {
-//             res.status(200).json(wantedMovie);
-//         } else {
-//             res.status(404).send("ayoy")
-//         }
-//     }
-// };
 const welcomeMsg = (req, res) => {
     res.send("Welcome to my favourite movie list !")
 }
